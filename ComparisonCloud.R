@@ -5,9 +5,9 @@ library(magrittr)
 library(tm)
 library(wordcloud)
 
-my_stopwords = c(stopwords::stopwords(language = "en", source = "snowball"),"myStopword1", "myStopword2")
+my_stopwords = c(stopwords::stopwords(language = "en", source = "snowball"),"systems","system","can","one","two","code","development", "software", "paper", "performance", "ldpc", "also", "seismic", "however")
 #EDIT this row
-my_file <- "my_Scopus_TSE_articles_clean_data.RData"
+my_file <- "my_STO_low_code_development_data.RData"
 #draw_ComparisonCloud = function(my_file){
 
   my_temp_file = paste(my_data_dir, "/", sep="")
@@ -82,7 +82,7 @@ my_file <- "my_Scopus_TSE_articles_clean_data.RData"
 
   colnames(tdm) <- c ("Q1 <= 0.25", "0.25 < Q2 <= 0.5", 
                       "0.5 < Q3 <= 0.75", "Q4 > 0.75")
-  comparison.cloud(tdm, max.words=50, rot.per=0, title.size=1.5, colors=brewer.pal(4,"Set1"))
+  comparison.cloud(tdm, max.words=50, rot.per=0, title.size=1.5, colors=brewer.pal(4,"Set1"), scale=c(2.8,0.2))
   
   rm(my_articles)
   
