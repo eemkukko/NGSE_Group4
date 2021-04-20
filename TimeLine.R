@@ -1,4 +1,4 @@
-my_file <- "my_Scopus_TSE_articles_clean_data.RData"
+my_file <- "my_Scopus_lc_data.RData"
 
 #draw_myWordCloud = function(my_file){
 
@@ -7,7 +7,7 @@ my_temp_file = paste(my_temp_file, my_file, sep="")
 load(my_temp_file)
 #Data from IEEE Transaction on Software Engineering 
 #(Top Software Engineering scientific journal)
-
+my_articles <- my_scopus_articles
 #----------------------------------------------------------------------
 #
 #How many documents per year / month / day
@@ -23,7 +23,7 @@ class(my_articles$Date)
 yearly <- table (years)
 class(yearly)
 plot (yearly, type ="l", xaxt="n", xlab="", ylab="")
-axis(1, at = seq(1975, 2018, by = 1), las=2)
+axis(1, at = seq(1975, 2021, by = 1), las=2)
 
 #use pure date
 date <- table (my_articles$Date)
@@ -89,7 +89,7 @@ head(my_articles$Title[order(-my_articles$Cites)], n=5)
 median (nchar(my_articles2$Title))
 
 boxplot(my_articles2$Cites[nchar(my_articles2$Title) > median (nchar(my_articles2$Title))],
-        my_articles2$Cites[nchar(my_articles2$Title) <= median (nchar(my_articles2$Title))], names=c("longer", "shorter"), main="IEEE Transaction on Software Engineering")
+        my_articles2$Cites[nchar(my_articles2$Title) <= median (nchar(my_articles2$Title))], names=c("longer", "shorter"), main="Lenght of the title compared to citation in Scopus")
 
 wilcox.test(my_articles2$Cites[nchar(my_articles2$Title) > median (nchar(my_articles2$Title))],
        my_articles2$Cites[nchar(my_articles2$Title) <= median (nchar(my_articles2$Title))])
@@ -105,12 +105,12 @@ q3_t <- my_articles$Cites[nchar(my_articles2$Title) > quantile(nchar(my_articles
                             nchar(my_articles2$Title) <= quantile(nchar(my_articles2$Title), probs = 0.75)]
 q4_t <- my_articles$Cites[nchar(my_articles2$Title) > quantile(nchar(my_articles2$Title), probs = 0.75)]
 
-boxplot(q1_t,q2_t, q3_t, q4_t, names=c("shorter", "short", "long", "longer"), main="Title Length(x) & Citations(y)\nIEEE Transaction on Software Engineering")
+boxplot(q1_t,q2_t, q3_t, q4_t, names=c("shorter", "short", "long", "longer"), main="Title Length(x) & Citations(y)\nScopus")
 summary(q1_t)
 summary(q2_t)
 summary(q3_t)
 summary(q4_t)
 
 #Lets try log scale. We need to add +1 since log(0) is undefined and log(1) is zero
-boxplot(q1_t+1,q2_t+1, q3_t+1, q4_t+1,log="y", names=c("shorter", "short", "long", "longer"), main="Title length(x) & Citations(y)\nIEEE Transaction on Software Engineering\n")
+boxplot(q1_t+1,q2_t+1, q3_t+1, q4_t+1,log="y", names=c("shorter", "short", "long", "longer"), main="Title length(x) & Citations(y)\nScopus\n")
 
